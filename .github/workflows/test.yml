@@ -23,7 +23,7 @@ jobs:
           cp Casks/vh22-top.rb "$(brew --repository aelder/tap)/Casks/"
 
       - name: Audit
-        run: brew audit --strict --new --cask aelder/tap/vh22-top
+        run: brew audit --strict --cask aelder/tap/vh22-top
 
       - name: Install cask from this checkout
         run: brew install --cask aelder/tap/vh22-top
