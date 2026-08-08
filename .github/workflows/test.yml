@@ -30,6 +30,6 @@ jobs:
 
       - name: Test
         run: |
-          test "$(vh22-top --version)" = "vh22-top 1.1.1"
-          grep -q VH22_NEWS "$(command -v vh22-top)"
-          grep -q news.md "$(command -v vh22-top)"
+          test "$(vh22-top --version)" = "vh22-top 1.1.2"
+          installed="$(ruby -e 'puts File.realpath(ARGV[0])' "$(command -v vh22-top)")"
+          test -f "$(dirname "$installed")/news.md"
