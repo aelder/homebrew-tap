@@ -8,15 +8,15 @@ Homebrew formulae for projects maintained by
 `vh22-top` is a VerusHash 2.2 terminal miner for Apple silicon Macs.
 
 ```bash
-brew install aelder/tap/vh22-top
-vh22-top
+brew install --cask aelder/tap/vh22-top && vh22-top
 ```
 
-The formula builds the tagged source release and installs the full ticker data
-alongside the executable. Upgrade it with:
+The cask installs the verified Apple silicon release and the full ticker data
+without compiling locally. The miner launches only after Homebrew reports a
+successful installation. Upgrade it with:
 
 ```bash
-brew upgrade vh22-top
+brew upgrade --cask vh22-top
 ```
 
 Project documentation, beta status, and hardware disclaimer:

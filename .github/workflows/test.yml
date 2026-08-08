@@ -14,21 +14,22 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Style
-        run: brew style Formula/vh22-top.rb
+        run: brew style Casks/vh22-top.rb
 
       - name: Prepare local tap
         run: |
           brew tap-new aelder/tap
-          cp Formula/vh22-top.rb "$(brew --repository aelder/tap)/Formula/"
+          mkdir -p "$(brew --repository aelder/tap)/Casks"
+          cp Casks/vh22-top.rb "$(brew --repository aelder/tap)/Casks/"
 
       - name: Audit
-        run: brew audit --strict --new --formula aelder/tap/vh22-top
+        run: brew audit --strict --new --cask aelder/tap/vh22-top
 
-      - name: Install formula from this checkout
-        run: |
-          brew install --build-from-source aelder/tap/vh22-top
+      - name: Install cask from this checkout
+        run: brew install --cask aelder/tap/vh22-top
 
       - name: Test
         run: |
-          brew test aelder/tap/vh22-top
-          vh22-top --version
+          test "$(vh22-top --version)" = "vh22-top 1.1.1"
+          grep -q VH22_NEWS "$(command -v vh22-top)"
+          grep -q news.md "$(command -v vh22-top)"
