@@ -1,0 +1,34 @@
+name: formula
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macos-15
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Style
+        run: brew style Formula/vh22-top.rb
+
+      - name: Prepare local tap
+        run: |
+          brew tap-new aelder/tap
+          cp Formula/vh22-top.rb "$(brew --repository aelder/tap)/Formula/"
+
+      - name: Audit
+        run: brew audit --strict --new --formula aelder/tap/vh22-top
+
+      - name: Install formula from this checkout
+        run: |
+          brew install --build-from-source aelder/tap/vh22-top
+
+      - name: Test
+        run: |
+          brew test aelder/tap/vh22-top
+          vh22-top --version
